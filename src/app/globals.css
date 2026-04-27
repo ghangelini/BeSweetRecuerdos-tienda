@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ECE4D6;
+  --foreground: #1c1917;
+  
+  --color-turquesa: #BBCBCA;
+  --color-dorado: #ECCEB2;
+  --color-coral: #EBB6A4;
+  --color-coral-oscuro: #dfa99c;
+  --color-gris-texto: #8B7355;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
