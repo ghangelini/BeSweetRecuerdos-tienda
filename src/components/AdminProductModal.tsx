@@ -133,8 +133,8 @@ export default function AdminProductModal({ isOpen, onClose, onSuccess, product 
     setLoading(true);
     setError('');
 
-    if (!formData.name || !formData.price || !formData.image) {
-      setError('Nombre, precio e imagen son obligatorios');
+    if (!formData.name || !formData.image) {
+      setError('Nombre e imagen son obligatorios');
       setLoading(false);
       return;
     }
@@ -255,7 +255,6 @@ export default function AdminProductModal({ isOpen, onClose, onSuccess, product 
                 onChange={(e) => setFormData((prev) => ({ ...prev, price: Number(e.target.value) }))}
                 className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition-all text-sm font-bold text-pink-600"
                 placeholder="0"
-                required
               />
             </div>
 
