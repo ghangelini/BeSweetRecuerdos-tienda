@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
             <img
               src="/logo.jpg"
               alt="BeSweet Recuerdos Logo"
-              className="h-16 w-auto object-contain"
+              className="h-16 w-auto object-contain mix-blend-multiply"
             />
             <span className="ml-3 text-2xl font-bold text-[#EBB4A4] tracking-tight hidden sm:block">
               BeSweet Recuerdos
