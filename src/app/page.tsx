@@ -26,7 +26,7 @@ export default function Home() {
     async function fetchData() {
       try {
         const { data: productsData, error: productsError } = await supabase
-          .from('products')
+          .from('productos')
           .select('*')
           .order('order_index', { ascending: true, nullsFirst: false });
 

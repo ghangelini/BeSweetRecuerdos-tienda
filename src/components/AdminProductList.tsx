@@ -20,7 +20,7 @@ export default function AdminProductList() {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('products')
+        .from('productos')
         .select('*')
         .order('order_index', { ascending: true, nullsFirst: false });
 
@@ -43,7 +43,7 @@ export default function AdminProductList() {
 
     try {
       const { error } = await supabase
-        .from('products')
+        .from('productos')
         .delete()
         .eq('id', id);
 

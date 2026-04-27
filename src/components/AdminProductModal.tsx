@@ -62,14 +62,14 @@ export default function AdminProductModal({ isOpen, onClose, onSuccess, product 
         const fileName = `${Math.random()}.${fileExt}`;
 
         const { error: uploadError } = await supabase.storage
-          .from('products')
+          .from('productos')
           .upload(fileName, file);
 
         if (uploadError) throw uploadError;
 
         const {
           data: { publicUrl },
-        } = supabase.storage.from('products').getPublicUrl(fileName);
+        } = supabase.storage.from('productos').getPublicUrl(fileName);
 
         return publicUrl;
       });
@@ -154,7 +154,7 @@ export default function AdminProductModal({ isOpen, onClose, onSuccess, product 
       delete productToSave.originalPrice;
       delete productToSave.isFeatured;
 
-      const { error: upsertError } = await supabase.from('products').upsert(productToSave);
+      const { error: upsertError } = await supabase.from('productos').upsert(productToSave);
 
       if (upsertError) throw upsertError;
 
