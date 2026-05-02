@@ -144,8 +144,6 @@ export default function LandingPage() {
 
       </main>
 
-      <WhatsAppButton />
-
       <footer className="w-full py-6 text-center z-10 relative mt-auto">
         <p className="text-[#8B7355] text-sm">
           © 2026 BesweetRecuerdos. | Desarrollado por:{' '}
