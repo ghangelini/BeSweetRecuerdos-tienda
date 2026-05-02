@@ -23,8 +23,8 @@ const backgrounds = [
 const messages = [
   { title: 'Momentos Inolvidables', text: 'Recuerdos personalizados para cada ocasión especial.' },
   { title: 'Detalles Únicos', text: 'Diseñados con amor para sorprender a tus invitados.' },
-  { title: 'Aromas y Colores', text: 'Velas, fragancias y souvenirs que enamoran.' },
-  { title: 'Calidad Artesanal', text: 'Cada pieza es única, creada especialmente para vos.' }
+  { title: 'Calidad Artesanal', text: 'Cada pieza es única, creada especialmente para vos.' },
+  { title: 'Aromas y Colores', text: 'Velas, fragancias y souvenirs que enamoran.' }
 ];
 
 export default function LandingPage() {
