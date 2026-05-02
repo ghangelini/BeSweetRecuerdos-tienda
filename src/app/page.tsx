@@ -1,209 +1,150 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Product } from '@/context/CartContext';
-import { supabase } from '@/lib/supabase';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Store, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
-import ProductCard from '@/components/ProductCard';
-import CartSidebar from '@/components/CartSidebar';
-import WhatsAppButton from '@/components/WhatsAppButton';
-import { formatCategoryLabel, mapProductRecord } from '@/lib/products';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const ALL_FILTER = 'all';
+const images = [
+  '/images/carrusel-1.jpg',
+  '/images/carrusel-2.jpg',
+  '/images/carrusel-3.jpg',
+  '/images/carrusel-4.jpg'
+];
 
-const CATEGORIAS_MANUALES = ['cajas', 'varios','adornos','velas','fragancias','miel'];
+const backgrounds = [
+  '#FCE4EC', // Soft Pink
+  '#E3F2FD', // Soft Blue
+  '#F3E5F5', // Soft Purple
+  '#FFF3E0'  // Soft Peach
+];
 
-export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<string[]>(CATEGORIAS_MANUALES);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState<string>(ALL_FILTER);
-  const scrollRef = useRef<HTMLDivElement>(null);
+const messages = [
+  { title: 'Momentos Inolvidables', text: 'Recuerdos personalizados para cada ocasión especial.' },
+  { title: 'Detalles Únicos', text: 'Diseñados con amor para sorprender a tus invitados.' },
+  { title: 'Aromas y Colores', text: 'Velas, fragancias y souvenirs que enamoran.' },
+  { title: 'Calidad Artesanal', text: 'Cada pieza es única, creada especialmente para vos.' }
+];
 
+export default function LandingPage() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-play the carousel
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const { data: productsData, error: productsError } = await supabase
-          .from('productos')
-          .select('*')
-          .order('order_index', { ascending: true, nullsFirst: false });
-
-        if (productsError) throw productsError;
-
-        if (productsData && productsData.length > 0) {
-          setProducts(productsData.map(mapProductRecord));
-        }
-      } catch (err) {
-        console.error('Error fetching data:', err);
-        setProducts([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(timer);
   }, []);
 
-  const categoryItems = [
-    { value: ALL_FILTER, label: 'Todos', count: products.length },
-    ...categories.map(cat => ({
-      value: cat,
-      label: formatCategoryLabel(cat),
-      count: products.filter(p => p.category === cat).length
-    })).filter(item => item.count > 0)
-  ];
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
 
-  const filterItems = [
-    {
-      value: ALL_FILTER,
-      label: 'Todos',
-      count: products.length,
-    },
-    ...categories.map(cat => ({
-      value: cat,
-      label: formatCategoryLabel(cat),
-      count: products.filter(p => p.category === cat).length
-    })).filter(item => item.count > 0)
-  ];
-
-  const filteredProducts =
-    activeCategory === ALL_FILTER
-      ? products
-      : products.filter((product) => product.category === activeCategory);
-
-  const scrollFilters = (direction: 'left' | 'right') => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({
-      left: direction === 'right' ? 320 : -320,
-      behavior: 'smooth',
-    });
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
   return (
-    <div className="min-h-screen bg-[#ECE4D6] pb-20 transition-colors duration-300">
-      <Navbar onCartClick={() => setIsCartOpen(true)} />
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      <WhatsAppButton />
+    <motion.div 
+      className="min-h-screen transition-colors duration-1000 ease-in-out"
+      animate={{ backgroundColor: backgrounds[currentIndex] }}
+    >
+      <Navbar showCart={false} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
-        <div className="bg-[#F5EFE0] rounded-3xl shadow-xl p-6 sm:p-8 border border-[#D4C4A8] transition-colors duration-300">
-          <div className="mb-6 sm:mb-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#8B7355]">
-              Recuerdos artesanales 💟
-            </p>
-            <h1 className="mt-2 text-3xl font-bold leading-tight text-[#EBB4A4] sm:text-4xl">
-              Souvenirs personalizados 
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm text-[#8B7355] sm:text-base">
-              Identificadores, llaveros y más souvenirs personalizados para tu evento especial.
-            </p>
-          </div>
-
-          <div className="mb-8 rounded-[2rem] border border-[#D4C4A8] bg-[#FBFAF8] p-4">
-            <div className="flex items-center justify-between gap-4 mb-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#8B7355]">
-                  Filtrar por categoría
-                </p>
-              </div>
-              <div className="hidden sm:flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => scrollFilters('left')}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D4C4A8] bg-[#F5EFE0] text-[#5D4E37] transition hover:border-[#EBB6A4] hover:text-[#EBB6A4]"
-                  aria-label="Ver categorías anteriores"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollFilters('right')}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D4C4A8] bg-[#F5EFE0] text-[#5D4E37] transition hover:border-[#EBB6A4] hover:text-[#EBB6A4]"
-                  aria-label="Ver más categorías"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-
-            <div
-              ref={scrollRef}
-              className="flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {filterItems.map((item) => {
-                const isActive = item.value === activeCategory;
-                return (
-                  <button
-                    key={item.value}
-                    type="button"
-                    onClick={() => setActiveCategory(item.value)}
-                    className={`group min-w-[118px] shrink-0 rounded-[28px] border px-4 py-3 text-left transition-all duration-200 ${
-                      isActive
-                        ? 'border-[#EBB6A4] bg-[#FDF9F6] shadow-lg shadow-[#ECCEB2]/30'
-                        : 'border-[#ECCEB2] bg-[#F5EFE0] hover:-translate-y-0.5 hover:border-[#EBB6A4] hover:shadow-md'
-                    }`}
-                  >
-                    <div
-                      className={`mb-2 flex h-12 w-12 items-center justify-center rounded-full border text-sm font-bold transition ${
-                        isActive
-                          ? 'border-[#EBB6A4] bg-[#F5EFE0] text-[#EBB6A4]'
-                          : 'border-[#ECCEB2] bg-[#FDF9F6] text-[#BBCBCA] group-hover:text-[#EBB6A4]'
-                      }`}
-                    >
-                      {item.label.slice(0, 2).toUpperCase()}
-                    </div>
-                    <p className={`text-sm font-semibold ${isActive ? 'text-[#9a8a7a]' : 'text-stone-700'}`}>
-                      {item.label}
-                    </p>
-                    <p className="text-xs text-stone-400">
-                      {item.count} {item.count === 1 ? 'producto' : 'productos'}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="animate-pulse bg-gray-100 aspect-square rounded-2xl" />
-              ))}
-            </div>
-          ) : filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-[2rem] border border-dashed border-[#ECCEB2] bg-[#ECCEB2]/10 px-6 py-14 text-center">
-              <p className="text-lg font-semibold text-stone-700">
-                No hay productos en esta categoría.
-              </p>
-              <p className="mt-2 text-sm text-stone-500">
-                Elegí otra categoría o cargá productos desde el panel admin.
-              </p>
-            </div>
-          )}
-        </div>
-      </main>
-
-      <footer className="mt-8 py-4 text-center">
-        <p className="text-[#8B7355] text-sm">
-          © {new Date().getFullYear()} BeSweet Recuerdos | Desarrollado por{' '}
-          <a
-            href="https://www.ga-labs.com.ar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#EBB6A4] transition-colors font-medium underline-offset-4 hover:underline"
+      <main className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
+        
+        {/* Hero Section */}
+        <div className="text-center mb-10 mt-4">
+          <motion.h1 
+            key={`title-${currentIndex}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#8B7355] mb-4"
           >
-            GA-Labs
-          </a>
-        </p>
-      </footer>
-    </div>
+            {messages[currentIndex].title}
+          </motion.h1>
+          <motion.p 
+            key={`text-${currentIndex}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-lg sm:text-xl text-[#8B7355]/80 max-w-2xl mx-auto"
+          >
+            {messages[currentIndex].text}
+          </motion.p>
+        </div>
+
+        {/* Carousel */}
+        <div className="relative w-full max-w-4xl aspect-[16/10] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white/50">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentIndex}
+              src={images[currentIndex]}
+              alt={`Slide ${currentIndex + 1}`}
+              className="absolute inset-0 w-full h-full object-cover"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+            />
+          </AnimatePresence>
+
+          {/* Gradient Overlay for better text visibility if needed */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+
+          {/* Controls */}
+          <button 
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/70 text-[#8B7355] hover:bg-white transition-all hover:scale-110 shadow-lg backdrop-blur-sm"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          
+          <button 
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/70 text-[#8B7355] hover:bg-white transition-all hover:scale-110 shadow-lg backdrop-blur-sm"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          {/* Indicators */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {images.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  idx === currentIndex ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/80'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <motion.div 
+          className="mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          <Link 
+            href="/tienda"
+            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-bold text-white bg-[#EBB6A4] rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+          >
+            <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+            <span className="relative flex items-center gap-2">
+              <Store className="w-6 h-6" />
+              Ingresar a la Tienda
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </Link>
+        </motion.div>
+
+      </main>
+    </motion.div>
   );
 }
