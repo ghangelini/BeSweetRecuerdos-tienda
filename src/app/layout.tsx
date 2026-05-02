@@ -3,6 +3,7 @@ import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.besweetrecuerdos.com.ar'),
   title: 'BeSweet Recuerdos',
   description: 'Souvenirs personalizados - Recuerdos diseñados para vos',
   keywords: ['souvenirs', 'recuerdos', 'personalizado', 'regalos', 'velas', 'difusores'],
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'BeSweet Recuerdos',
     description: 'Souvenirs personalizados - Recuerdos diseñados para vos',
-    url: 'https://besweetrecuerdos.com',
+    url: 'https://www.besweetrecuerdos.com.ar',
     siteName: 'BeSweet Recuerdos',
     images: [
       {
