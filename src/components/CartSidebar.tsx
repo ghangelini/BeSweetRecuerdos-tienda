@@ -112,7 +112,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
                   </span>
                 </div>
                 <a
-                  href={`https://wa.me/5491163746491?text=${encodeURIComponent('Hola! Quiero comprar: ' + cart.map(i => `${i.quantity}x ${i.name}`).join(', '))}`}
+                  href={`https://wa.me/5491131301425?text=${encodeURIComponent('Hola! Quiero comprar: ' + cart.map(i => `${i.quantity}x ${i.name}`).join(', '))}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-4 bg-[#EBB6A4] text-white rounded-2xl font-bold text-lg hover:bg-[#dfa99c] transition-all active:scale-[0.98] shadow-lg text-center block"

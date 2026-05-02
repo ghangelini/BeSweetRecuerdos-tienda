@@ -121,7 +121,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
           {product.stock !== undefined && product.stock <= 0 ? (
             <a
-              href={`https://wa.me/5491163746491?text=${encodeURIComponent(`Hola! Quería saber si tenés stock de: ${product.name}`)}`}
+              href={`https://wa.me/5491131301425?text=${encodeURIComponent(`Hola! Quería saber si tenés stock de: ${product.name}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}

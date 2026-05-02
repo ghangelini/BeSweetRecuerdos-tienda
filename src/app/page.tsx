@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Store, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Store, ArrowRight, Pause, Play, Hourglass } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 
@@ -29,14 +29,16 @@ const messages = [
 
 export default function LandingPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   // Auto-play the carousel
   useEffect(() => {
+    if (!isPlaying) return;
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isPlaying, currentIndex]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -109,6 +111,20 @@ export default function LandingPage() {
           >
             <ChevronRight className="w-6 h-6" />
           </button>
+
+          {/* Play/Pause & Hourglass Controls */}
+          <div className="absolute top-4 right-4 flex gap-2">
+            <div className="flex items-center justify-center p-2 rounded-full bg-white/70 text-[#8B7355] shadow-lg backdrop-blur-sm" title="Temporizador del carrusel">
+              <Hourglass className={`w-5 h-5 ${isPlaying ? 'animate-pulse' : 'opacity-50'}`} />
+            </div>
+            <button 
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="p-2 rounded-full bg-white/70 text-[#8B7355] hover:bg-white transition-all hover:scale-110 shadow-lg backdrop-blur-sm"
+              aria-label={isPlaying ? 'Pausar carrusel' : 'Reproducir carrusel'}
+            >
+              {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+            </button>
+          </div>
 
           {/* Indicators */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
