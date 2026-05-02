@@ -31,6 +31,18 @@ const backgrounds = [
   'rgba(54, 89, 181, 0.15)'
 ];
 
+const buttonColors = [
+  '#da7857',
+  '#849f44',
+  '#c19116',
+  '#bd894c',
+  '#bc5416',
+  '#a17545',
+  '#ef5a86',
+  '#e0bb44',
+  '#3659b5'
+];
+
 export default function LandingPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -122,24 +134,27 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Call to Action */}
         <motion.div 
-          className="mt-12"
+          className="mt-12 group relative inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-bold text-white rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          animate={{ opacity: 1, y: 0, backgroundColor: buttonColors[currentIndex] }}
+          transition={{ 
+            backgroundColor: { duration: 1 }, 
+            opacity: { delay: 0.5, duration: 0.8 }, 
+            y: { delay: 0.5, duration: 0.8 } 
+          }}
         >
           <Link 
             href="/tienda"
-            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-bold text-white bg-[#EBB6A4] rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
-          >
-            <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
-            <span className="relative flex items-center gap-2">
-              <Store className="w-6 h-6" />
-              Ingresar a la Tienda
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </Link>
+            className="absolute inset-0 w-full h-full z-10"
+            aria-label="Ingresar a la Tienda"
+          />
+          <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none"></span>
+          <span className="relative flex items-center gap-2 pointer-events-none">
+            <Store className="w-6 h-6" />
+            Ingresar a la Tienda
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </span>
         </motion.div>
 
       </main>

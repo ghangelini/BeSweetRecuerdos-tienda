@@ -10,7 +10,6 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { addToCart } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -119,27 +118,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               {product.price > 0 ? `$${product.price.toLocaleString('es-AR')}` : '$'}
             </span>
           </div>
-          {product.stock !== undefined && product.stock <= 0 ? (
-            <a
-              href={`https://wa.me/5491131301425?text=${encodeURIComponent(`Hola! Quería saber si tenés stock de: ${product.name}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-2 justify-center px-4 h-10 rounded-full bg-white border-2 border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all shadow-md text-sm font-bold whitespace-nowrap active:scale-95 group/btn"
-              title="Agotado - Consultar por WhatsApp"
-            >
-              <MessageCircle className="w-4 h-4 group-hover/btn:animate-pulse" />
-              <span>Consultar!</span>
-            </a>
-          ) : (
-            <button
-              onClick={() => addToCart(product)}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-[#EBB6A4] text-white hover:bg-[#dfa99c] transition-all active:scale-95 shadow-lg"
-              aria-label="Agregar al carrito"
-            >
-              <Plus className="w-5 h-5" />
-            </button>
-          )}
+          <a
+            href={`https://wa.me/5491131301425?text=${encodeURIComponent(`Hola! Quería consultar por el producto: ${product.name}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center gap-2 justify-center px-4 h-10 rounded-full bg-white border-2 border-[#EBB6A4] text-[#EBB6A4] hover:bg-[#EBB6A4] hover:text-white transition-all shadow-md text-sm font-bold whitespace-nowrap active:scale-95 group/btn"
+            title="Consultar por WhatsApp"
+          >
+            <MessageCircle className="w-4 h-4 group-hover/btn:animate-pulse" />
+            <span>Consultar</span>
+          </a>
         </div>
       </div>
 

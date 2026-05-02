@@ -12,12 +12,11 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ALL_FILTER = 'all';
 
-const CATEGORIAS_MANUALES = ['cajas', 'varios','adornos','velas','fragancias','miel'];
+const CATEGORIAS_MANUALES = ['cajas', 'varios', 'adornos', 'velas', 'fragancias', 'miel'];
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>(CATEGORIAS_MANUALES);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<string>(ALL_FILTER);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -83,18 +82,18 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#ECE4D6] pb-20 transition-colors duration-300">
-      <Navbar onCartClick={() => setIsCartOpen(true)} />
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <Navbar showCart={false} />
+      
       <WhatsAppButton />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
         <div className="bg-[#F5EFE0] rounded-3xl shadow-xl p-6 sm:p-8 border border-[#D4C4A8] transition-colors duration-300">
           <div className="mb-6 sm:mb-7">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#8B7355]">
-              Recuerdos artesanales 💟
+              💟 Recuerdos artesanales 💟
             </p>
             <h1 className="mt-2 text-3xl font-bold leading-tight text-[#EBB4A4] sm:text-4xl">
-              Souvenirs personalizados 
+              Souvenirs personalizados
             </h1>
             <p className="mt-3 max-w-3xl text-sm text-[#8B7355] sm:text-base">
               Identificadores, llaveros y más souvenirs personalizados para tu evento especial.
@@ -139,18 +138,16 @@ export default function Home() {
                     key={item.value}
                     type="button"
                     onClick={() => setActiveCategory(item.value)}
-                    className={`group min-w-[118px] shrink-0 rounded-[28px] border px-4 py-3 text-left transition-all duration-200 ${
-                      isActive
+                    className={`group min-w-[118px] shrink-0 rounded-[28px] border px-4 py-3 text-left transition-all duration-200 ${isActive
                         ? 'border-[#EBB6A4] bg-[#FDF9F6] shadow-lg shadow-[#ECCEB2]/30'
                         : 'border-[#ECCEB2] bg-[#F5EFE0] hover:-translate-y-0.5 hover:border-[#EBB6A4] hover:shadow-md'
-                    }`}
+                      }`}
                   >
                     <div
-                      className={`mb-2 flex h-12 w-12 items-center justify-center rounded-full border text-sm font-bold transition ${
-                        isActive
+                      className={`mb-2 flex h-12 w-12 items-center justify-center rounded-full border text-sm font-bold transition ${isActive
                           ? 'border-[#EBB6A4] bg-[#F5EFE0] text-[#EBB6A4]'
                           : 'border-[#ECCEB2] bg-[#FDF9F6] text-[#BBCBCA] group-hover:text-[#EBB6A4]'
-                      }`}
+                        }`}
                     >
                       {item.label.slice(0, 2).toUpperCase()}
                     </div>
