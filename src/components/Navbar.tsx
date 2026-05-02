@@ -23,9 +23,14 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, showCart = true }) => {
               alt="BeSweet Recuerdos Logo"
               className="h-16 w-auto object-contain mix-blend-multiply transition-transform group-hover:scale-105"
             />
-            <span className="ml-3 text-2xl font-bold text-[#EBB4A4] tracking-tight hidden sm:block transition-colors group-hover:text-[#E8A593]">
-              BeSweet Recuerdos
-            </span>
+            <div className="ml-3 hidden sm:flex flex-col items-center justify-center transition-all group-hover:scale-105">
+              <span className="text-4xl text-[#F29CA3] leading-none" style={{ fontFamily: 'var(--font-great-vibes)' }}>
+                Besweet
+              </span>
+              <span className="text-lg text-[#C2B176] tracking-[0.2em] -mt-2" style={{ fontFamily: 'var(--font-playfair)' }}>
+                recuerdos
+              </span>
+            </div>
           </Link>
 
           <div className="flex items-center gap-4">

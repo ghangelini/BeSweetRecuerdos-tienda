@@ -193,7 +193,7 @@ export default function Home() {
 
       <footer className="mt-8 py-4 text-center">
         <p className="text-[#8B7355] text-sm">
-          © {new Date().getFullYear()} BeSweet Recuerdos | Desarrollado por{' '}
+          © 2026 BesweetRecuerdos. | Desarrollado por:{' '}
           <a
             href="https://www.ga-labs.com.ar"
             target="_blank"

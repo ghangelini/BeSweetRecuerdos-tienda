@@ -2,29 +2,33 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Store, ArrowRight, Pause, Play, Hourglass } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Store, ArrowRight, Pause, Play } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 const images = [
   '/images/carrusel-1.jpg',
   '/images/carrusel-2.jpg',
   '/images/carrusel-3.jpg',
-  '/images/carrusel-4.jpg'
+  '/images/carrusel-4.jpg',
+  '/images/carrusel-5.jpg',
+  '/images/carrusel-6.jpg',
+  '/images/carrusel-7.jpg',
+  '/images/carrusel-8.jpg',
+  '/images/carrusel-9.jpg'
 ];
 
 const backgrounds = [
-  '#FCE4EC', // Soft Pink
-  '#E3F2FD', // Soft Blue
-  '#F3E5F5', // Soft Purple
-  '#FFF3E0'  // Soft Peach
-];
-
-const messages = [
-  { title: 'Momentos Inolvidables', text: 'Recuerdos personalizados para cada ocasión especial.' },
-  { title: 'Detalles Únicos', text: 'Diseñados con amor para sorprender a tus invitados.' },
-  { title: 'Calidad Artesanal', text: 'Cada pieza es única, creada especialmente para vos.' },
-  { title: 'Aromas y Colores', text: 'Velas, fragancias y souvenirs que enamoran.' }
+  'rgba(218, 120, 87, 0.15)',
+  'rgba(132, 159, 68, 0.15)',
+  'rgba(193, 145, 22, 0.15)',
+  'rgba(189, 137, 76, 0.15)',
+  'rgba(188, 84, 22, 0.15)',
+  'rgba(161, 117, 69, 0.15)',
+  'rgba(239, 90, 134, 0.15)',
+  'rgba(224, 187, 68, 0.15)',
+  'rgba(54, 89, 181, 0.15)'
 ];
 
 export default function LandingPage() {
@@ -57,36 +61,16 @@ export default function LandingPage() {
 
       <main className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
         
-        {/* Hero Section */}
-        <div className="text-center mb-10 mt-4">
-          <motion.h1 
-            key={`title-${currentIndex}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#8B7355] mb-4"
-          >
-            {messages[currentIndex].title}
-          </motion.h1>
-          <motion.p 
-            key={`text-${currentIndex}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg sm:text-xl text-[#8B7355]/80 max-w-2xl mx-auto"
-          >
-            {messages[currentIndex].text}
-          </motion.p>
-        </div>
+
 
         {/* Carousel */}
-        <div className="relative w-full max-w-4xl aspect-[16/10] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white/50">
+        <div className="relative w-full max-w-5xl lg:max-w-6xl h-[60vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white/50 bg-white/20 backdrop-blur-sm">
           <AnimatePresence mode="wait">
             <motion.img
               key={currentIndex}
               src={images[currentIndex]}
               alt={`Slide ${currentIndex + 1}`}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-contain p-4"
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
@@ -114,9 +98,7 @@ export default function LandingPage() {
 
           {/* Play/Pause & Hourglass Controls */}
           <div className="absolute top-4 right-4 flex gap-2">
-            <div className="flex items-center justify-center p-2 rounded-full bg-white/70 text-[#8B7355] shadow-lg backdrop-blur-sm" title="Temporizador del carrusel">
-              <Hourglass className={`w-5 h-5 ${isPlaying ? 'animate-pulse' : 'opacity-50'}`} />
-            </div>
+
             <button 
               onClick={() => setIsPlaying(!isPlaying)}
               className="p-2 rounded-full bg-white/70 text-[#8B7355] hover:bg-white transition-all hover:scale-110 shadow-lg backdrop-blur-sm"
@@ -161,6 +143,22 @@ export default function LandingPage() {
         </motion.div>
 
       </main>
+
+      <WhatsAppButton />
+
+      <footer className="w-full py-6 text-center z-10 relative mt-auto">
+        <p className="text-[#8B7355] text-sm">
+          © 2026 BesweetRecuerdos. | Desarrollado por:{' '}
+          <a
+            href="https://www.ga-labs.com.ar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#EBB6A4] transition-colors font-bold underline-offset-4 hover:underline"
+          >
+            GA-Labs
+          </a>
+        </p>
+      </footer>
     </motion.div>
   );
 }

@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
+import { Great_Vibes, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
+
+const greatVibes = Great_Vibes({ subsets: ['latin'], weight: '400', variable: '--font-great-vibes' });
+const playfair = Playfair_Display({ subsets: ['latin'], weight: '400', variable: '--font-playfair' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.besweetrecuerdos.com.ar'),
@@ -38,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" className={`${greatVibes.variable} ${playfair.variable}`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
