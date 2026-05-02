@@ -47,6 +47,9 @@ export default function LandingPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
   // Auto-play the carousel
   useEffect(() => {
     if (!isPlaying) return;
@@ -64,6 +67,31 @@ export default function LandingPage() {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEndHandler = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    }
+    if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
   return (
     <motion.div 
       className="min-h-screen transition-colors duration-1000 ease-in-out"
@@ -76,7 +104,12 @@ export default function LandingPage() {
 
 
         {/* Carousel */}
-        <div className="relative w-full max-w-5xl lg:max-w-6xl h-[60vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white/50 bg-white/20 backdrop-blur-sm">
+        <div 
+          className="relative w-full max-w-5xl lg:max-w-6xl h-[60vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white/50 bg-white/20 backdrop-blur-sm touch-pan-y"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEndHandler}
+        >
           <AnimatePresence mode="wait">
             <motion.img
               key={currentIndex}
