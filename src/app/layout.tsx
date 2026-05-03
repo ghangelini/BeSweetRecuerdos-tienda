@@ -8,13 +8,19 @@ const playfair = Playfair_Display({ subsets: ['latin'], weight: '400', variable:
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.besweetrecuerdos.com.ar'),
-  title: 'BeSweet Recuerdos',
-  description: 'Souvenirs personalizados - Recuerdos diseñados para vos',
-  keywords: ['souvenirs', 'recuerdos', 'personalizado', 'regalos', 'velas', 'difusores'],
+  title: 'BeSweet Recuerdos | Souvenirs y Recuerdos Personalizados en Zona Sur',
+  description: 'Souvenirs y recuerdos personalizados para eventos en Zona Sur y Lanús. Velas de soja, difusores, regalos originales y más. Diseñados especialmente para vos.',
+  keywords: [
+    'souvenirs', 'recuerdos', 'personalizados', 'souvenirs personalizados', 
+    'recuerdos personalizados', 'zona sur', 'lanus', 'souvenirs en lanus', 
+    'souvenirs en zona sur', 'recuerdos para eventos', 'regalos', 'velas', 
+    'velas de soja', 'difusores', 'regalos empresariales', 'souvenirs de nacimiento', 
+    'souvenirs de bautismo', 'souvenirs de casamiento', 'BeSweet', 'BeSweet Recuerdos'
+  ],
   authors: [{ name: 'BeSweet Recuerdos' }],
   openGraph: {
-    title: 'BeSweet Recuerdos',
-    description: 'Souvenirs personalizados - Recuerdos diseñados para vos',
+    title: 'BeSweet Recuerdos | Souvenirs y Recuerdos Personalizados en Zona Sur',
+    description: 'Souvenirs y recuerdos personalizados para eventos en Zona Sur y Lanús. Velas de soja, difusores, regalos originales y más.',
     url: 'https://www.besweetrecuerdos.com.ar',
     siteName: 'BeSweet Recuerdos',
     images: [
@@ -30,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BeSweet Recuerdos',
-    description: 'Souvenirs personalizados - Recuerdos diseñados para vos',
+    title: 'BeSweet Recuerdos | Souvenirs y Recuerdos Personalizados en Zona Sur',
+    description: 'Souvenirs y recuerdos personalizados para eventos en Zona Sur y Lanús. Velas de soja, difusores, regalos originales y más.',
     images: ['/logo.jpg'],
   },
 };
