@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, showCart = true }) => {
               </a>
 
               <a
-                href="https://wa.me/5491131301425?text=Hola!%20Vi%20tu%20tienda%20y%20me%20gustar%C3%ADa%20consultar%20por%20productos."
+                href="https://wa.me/5491131301425?text=Hola!%20Vi%20tu%20tienda%20y%20me%20gustar%C3%ADa%20consultar%20por%20tus%20productos."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#EBB6A4] hover:text-[#E8A593] transition-colors p-2 hover:bg-[#EBB6A4]/10 rounded-full"
