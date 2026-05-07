@@ -84,7 +84,7 @@ export default function Home() {
             <h1 className="mt-2 text-3xl font-bold leading-tight text-[#EBB4A4] sm:text-4xl">
               Souvenirs personalizados
             </h1>
-            <p className="mt-3 max-w-3xl text-sm font-semibold text-[#7a6a55] sm:text-base">
+            <p className="mt-3 max-w-3xl text-sm text-[#8B7355] sm:text-base">
               Identificadores, llaveros, velas de soja, difusores artesanales, cajas regalo y más souvenirs personalizados para casamientos, bautismos, baby showers y todo tipo de eventos especiales.
             </p>
           </div>
