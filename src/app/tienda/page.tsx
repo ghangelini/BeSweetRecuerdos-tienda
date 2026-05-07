@@ -85,7 +85,7 @@ export default function Home() {
               Souvenirs personalizados
             </h1>
             <p className="mt-3 max-w-3xl text-sm text-[#8B7355] sm:text-base">
-              Identificadores, llaveros y más souvenirs personalizados para tu evento especial.
+              Identificadores, llaveros, <strong className="font-semibold text-[#7a6a55]">velas de soja</strong>, <strong className="font-semibold text-[#7a6a55]">difusores artesanales</strong>, cajas regalo y más souvenirs personalizados para casamientos, bautismos, baby showers y todo tipo de eventos especiales.
             </p>
           </div>
 
