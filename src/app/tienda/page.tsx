@@ -7,12 +7,12 @@ import Navbar from '@/components/Navbar';
 import ProductCard from '@/components/ProductCard';
 import CartSidebar from '@/components/CartSidebar';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import { formatCategoryLabel, mapProductRecord } from '@/lib/products';
+import { formatCategoryLabel, mapProductRecord, CATEGORY_ICONS } from '@/lib/products';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ALL_FILTER = 'all';
 
-const CATEGORIAS_MANUALES = ['cajas', 'varios', 'adornos', 'velas', 'fragancias', 'miel'];
+const CATEGORIAS_MANUALES = ['cajas', 'varios', 'adornos', 'velas', 'didacticos', 'difusores', 'fragancias', 'miel'];
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -54,18 +54,7 @@ export default function Home() {
     })).filter(item => item.count > 0)
   ];
 
-  const filterItems = [
-    {
-      value: ALL_FILTER,
-      label: 'Todos',
-      count: products.length,
-    },
-    ...categories.map(cat => ({
-      value: cat,
-      label: formatCategoryLabel(cat),
-      count: products.filter(p => p.category === cat).length
-    })).filter(item => item.count > 0)
-  ];
+  const filterItems = categoryItems;
 
   const filteredProducts =
     activeCategory === ALL_FILTER
@@ -133,6 +122,7 @@ export default function Home() {
             >
               {filterItems.map((item) => {
                 const isActive = item.value === activeCategory;
+                const icon = CATEGORY_ICONS[item.value] || item.label.slice(0, 2).toUpperCase();
                 return (
                   <button
                     key={item.value}
@@ -144,12 +134,12 @@ export default function Home() {
                       }`}
                   >
                     <div
-                      className={`mb-2 flex h-12 w-12 items-center justify-center rounded-full border text-sm font-bold transition ${isActive
-                          ? 'border-[#EBB6A4] bg-[#F5EFE0] text-[#EBB6A4]'
-                          : 'border-[#ECCEB2] bg-[#FDF9F6] text-[#BBCBCA] group-hover:text-[#EBB6A4]'
+                      className={`mb-2 flex h-12 w-12 items-center justify-center rounded-full border text-2xl transition ${isActive
+                          ? 'border-[#EBB6A4] bg-[#F5EFE0]'
+                          : 'border-[#ECCEB2] bg-[#FDF9F6] group-hover:border-[#EBB6A4]'
                         }`}
                     >
-                      {item.label.slice(0, 2).toUpperCase()}
+                      {icon}
                     </div>
                     <p className={`text-sm font-semibold ${isActive ? 'text-[#9a8a7a]' : 'text-stone-700'}`}>
                       {item.label}

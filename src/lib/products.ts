@@ -11,6 +11,12 @@ export const PRODUCT_CATEGORIES = [
   'tazas',
   'mates',
   'varios',
+  'adornos',
+  'velas',
+  'didacticos',
+  'difusores',
+  'fragancias',
+  'miel',
 ] as const;
 
 export type ProductCategory = (typeof PRODUCT_CATEGORIES)[number];
@@ -33,7 +39,7 @@ const CATEGORY_ALIASES: Record<string, ProductCategory> = {
   dulce: 'dulces',
   dulces: 'dulces',
   einzeln: 'sueltos',
- 单独: 'sueltos',
+  单独: 'sueltos',
   caja: 'cajas',
   cajas: 'cajas',
   regalo: 'regalos',
@@ -44,6 +50,19 @@ const CATEGORY_ALIASES: Record<string, ProductCategory> = {
   galletas: 'galletas',
   bombon: 'bombones',
   bombones: 'bombones',
+  adorno: 'adornos',
+  adornos: 'adornos',
+  vela: 'velas',
+  velas: 'velas',
+  didactico: 'didacticos',
+  didacticos: 'didacticos',
+  didáctico: 'didacticos',
+  didácticos: 'didacticos',
+  difusor: 'difusores',
+  difusores: 'difusores',
+  fragancia: 'fragancias',
+  fragancias: 'fragancias',
+  miel: 'miel',
 };
 
 const CATEGORY_KEYWORDS: Array<{ category: ProductCategory; keywords: string[] }> = [
@@ -57,6 +76,12 @@ const CATEGORY_KEYWORDS: Array<{ category: ProductCategory; keywords: string[] }
   { category: 'tazas', keywords: ['taza', 'tazas'] },
   { category: 'mates', keywords: ['mate', 'mates'] },
   { category: 'varios', keywords: ['vario', 'varios'] },
+  { category: 'adornos', keywords: ['adorno', 'adornos'] },
+  { category: 'velas', keywords: ['vela', 'velas'] },
+  { category: 'didacticos', keywords: ['didactico', 'didacticos', 'didáctico', 'didácticos'] },
+  { category: 'difusores', keywords: ['difusor', 'difusores'] },
+  { category: 'fragancias', keywords: ['fragancia', 'fragancias', 'aroma', 'aromas'] },
+  { category: 'miel', keywords: ['miel'] },
 ];
 
 function normalizeText(value?: string | null) {
@@ -77,6 +102,26 @@ export function formatCategoryLabel(category: string) {
   if (!category) return '';
   return category.replace(/\b\w/g, (char) => char.toUpperCase());
 }
+
+export const CATEGORY_ICONS: Record<string, string> = {
+  all: '🛍️',
+  dulces: '🍬',
+  sueltos: '🍭',
+  cajas: '📦',
+  regalos: '🎁',
+  alfajores: '🍫',
+  galletas: '🍪',
+  bombones: '🍩',
+  tazas: '☕',
+  mates: '🧉',
+  varios: '✨',
+  adornos: '🎀',
+  velas: '🕯️',
+  didacticos: '🧩',
+  difusores: '🌸',
+  fragancias: '🌺',
+  miel: '🍯',
+};
 
 export function inferProductCategory(product: Pick<Product, 'name' | 'description' | 'category'>) {
   const explicitCategory = normalizeCategory(product.category);
