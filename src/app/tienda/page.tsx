@@ -12,7 +12,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ALL_FILTER = 'all';
 
-const CATEGORIAS_MANUALES = ['cajas', 'varios', 'adornos', 'velas', 'didacticos', 'difusores', 'fragancias', 'miel'];
+const CATEGORIAS_MANUALES = ['cajas', 'regalos', 'varios', 'adornos', 'velas', 'didacticos', 'difusores', 'fragancias', 'miel'];
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
