@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
-const images = [
+const allImages = [
   '/images/carrusel-4.jpg',
   '/images/carrusel-5.jpg',
   '/images/carrusel-6.jpg',
@@ -19,7 +19,12 @@ const images = [
   '/images/carrusel-3.jpg'
 ];
 
-const backgrounds = [
+// Desktop: only show the last 3 (carrusel-1, 2, 3)
+// Mobile: show the first 6 (carrusel-4 through carrusel-9)
+const desktopImages = allImages.slice(6, 9);
+const mobileImages = allImages.slice(0, 6);
+
+const allBackgrounds = [
   'rgba(189, 137, 76, 0.15)',
   'rgba(188, 84, 22, 0.15)',
   'rgba(161, 117, 69, 0.15)',
@@ -31,7 +36,10 @@ const backgrounds = [
   'rgba(193, 145, 22, 0.15)'
 ];
 
-const buttonColors = [
+const desktopBackgrounds = allBackgrounds.slice(6, 9);
+const mobileBackgrounds = allBackgrounds.slice(0, 6);
+
+const allButtonColors = [
   '#bd894c',
   '#bc5416',
   '#a17545',
@@ -43,12 +51,34 @@ const buttonColors = [
   '#c19116'
 ];
 
+const desktopButtonColors = allButtonColors.slice(6, 9);
+const mobileButtonColors = allButtonColors.slice(0, 6);
+
 export default function LandingPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.matchMedia('(min-width: 768px)').matches);
+    };
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
+  const images = isDesktop ? desktopImages : mobileImages;
+  const backgrounds = isDesktop ? desktopBackgrounds : mobileBackgrounds;
+  const buttonColorsArr = isDesktop ? desktopButtonColors : mobileButtonColors;
+
+  // Reset index when switching between mobile/desktop
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [isDesktop]);
 
   // Auto-play the carousel
   useEffect(() => {
@@ -57,7 +87,7 @@ export default function LandingPage() {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [isPlaying, currentIndex]);
+  }, [isPlaying, currentIndex, images.length]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -170,7 +200,7 @@ export default function LandingPage() {
         <motion.div 
           className="mt-12 group relative inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-bold text-white rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0, backgroundColor: buttonColors[currentIndex] }}
+          animate={{ opacity: 1, y: 0, backgroundColor: buttonColorsArr[currentIndex] }}
           transition={{ 
             backgroundColor: { duration: 1 }, 
             opacity: { delay: 0.5, duration: 0.8 }, 
