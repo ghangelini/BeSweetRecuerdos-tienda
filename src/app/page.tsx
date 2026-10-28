@@ -8,39 +8,39 @@ import Navbar from '@/components/Navbar';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
 const images = [
-  '/images/carrusel-1.jpg',
-  '/images/carrusel-2.jpg',
-  '/images/carrusel-3.jpg',
   '/images/carrusel-4.jpg',
   '/images/carrusel-5.jpg',
   '/images/carrusel-6.jpg',
   '/images/carrusel-7.jpg',
   '/images/carrusel-8.jpg',
-  '/images/carrusel-9.jpg'
+  '/images/carrusel-9.jpg',
+  '/images/carrusel-1.jpg',
+  '/images/carrusel-2.jpg',
+  '/images/carrusel-3.jpg'
 ];
 
 const backgrounds = [
-  'rgba(218, 120, 87, 0.15)',
-  'rgba(132, 159, 68, 0.15)',
-  'rgba(193, 145, 22, 0.15)',
   'rgba(189, 137, 76, 0.15)',
   'rgba(188, 84, 22, 0.15)',
   'rgba(161, 117, 69, 0.15)',
   'rgba(239, 90, 134, 0.15)',
   'rgba(224, 187, 68, 0.15)',
-  'rgba(54, 89, 181, 0.15)'
+  'rgba(54, 89, 181, 0.15)',
+  'rgba(218, 120, 87, 0.15)',
+  'rgba(132, 159, 68, 0.15)',
+  'rgba(193, 145, 22, 0.15)'
 ];
 
 const buttonColors = [
-  '#da7857',
-  '#849f44',
-  '#c19116',
   '#bd894c',
   '#bc5416',
   '#a17545',
   '#ef5a86',
   '#e0bb44',
-  '#3659b5'
+  '#3659b5',
+  '#da7857',
+  '#849f44',
+  '#c19116'
 ];
 
 export default function LandingPage() {
